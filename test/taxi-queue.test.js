@@ -54,7 +54,12 @@ describe('The taxi queue app', function() {
 		taxiQueue.joinTaxiQueue();
 		taxiQueue.joinTaxiQueue();
 
-		assert.equal(3, taxi.taxiQueueLength());
+		assert.equal(3, taxiQueue.taxiQueueLength());
+
+		//I think there was an error in the assert statement
+		// it was calling taxi.taxiQueueLength() so I changed it
+		// to taxiQueue.taxiQueueLength as the factory function
+		// was instantiated as taxiQueue.
 
 	});
 
@@ -102,14 +107,14 @@ describe('The taxi queue app', function() {
 		taxiQueue.joinTaxiQueue();
 
 		// data before a taxi departs
-		assert.equal(3, taxiQueue.queueLength());
-		assert.equal(15, taxiQueue.queueLengthx());
+		assert.equal(3, taxiQueue.taxiQueueLength());
+		assert.equal(15, taxiQueue.queueLength());
 
 		taxiQueue.taxiDepart();
 
 		// data after a taxi departed
-		assert.equal(2, taxiQueue.queueLength());
-		assert.equal(3, taxiQueue.queueLengthx());
+		assert.equal(2, taxiQueue.taxiQueueLength());
+		assert.equal(3, taxiQueue.queueLength());
 		// assert.equal(2, taxiQueue.queueLength());
 
 	});
@@ -136,15 +141,19 @@ describe('The taxi queue app', function() {
 		taxiQueue.joinTaxiQueue();
 
 		// data before a taxi departs
-		assert.equal(3, taxiQueue.queueLength());
-		assert.equal(11, taxiQueue.queueLengthx());
+		assert.equal(3, taxiQueue.taxiQueueLength());
+		assert.equal(11, taxiQueue.queueLength());
 
 		// this function call should do nothing as there is not enough passengers in the queue
 		taxiQueue.taxiDepart();
 
 		// data after a taxi departed
-		assert.equal(3, taxiQueue.queueLength());
-		assert.equal(11, taxiQueue.queueLengthx());
+		assert.equal(3, taxiQueue.taxiQueueLength());
+		assert.equal(11, taxiQueue.queueLength());
+
+		//I think there was a mistake in the factory function
+		//being called. There isn't a function called
+		//queueLengthx, so I removed the 'x' part
 
 	});
 
@@ -169,15 +178,40 @@ describe('The taxi queue app', function() {
 		taxiQueue.joinQueue(); 
 
 		// data before a taxi departs
-		assert.equal(0, taxiQueue.queueLength());
-		assert.equal(15, taxiQueue.queueLengthx());
+		assert.equal(0, taxiQueue.taxiQueueLength());
+		assert.equal(15, taxiQueue.queueLength());
 
 		// this function call should do nothing as there is no taxis in the taxi queue
 		taxiQueue.taxiDepart();
 		
 		// data after a taxi departed
-		assert.equal(0, taxiQueue.queueLength());
-		assert.equal(15, taxiQueue.queueLengthx());
+		assert.equal(0, taxiQueue.taxiQueueLength());
+		assert.equal(15, taxiQueue.queueLength());
 
 	});
+
+	// it("should show that localStorage for passenger and taxi count equals the same as the passenger and taxi count variables which is 2 and 3 respectively", function() {
+	// 	const taxiQueue = TaxiQueue();
+
+	// 	taxiQueue.joinQueue();
+	// 	taxiQueue.joinQueue();
+	// 	taxiQueue.joinTaxiQueue();
+	// 	taxiQueue.joinTaxiQueue();
+	// 	taxiQueue.joinTaxiQueue();
+		
+	// 	assert.equal(taxiQueue.queueLength(), Number(localStorage["passengerQueueCount"]))
+	// 	assert.equal(taxiQueue.taxiQueueLength(), Number(localStorage["taxiQueueCount"]))
+	
+	// 	const taxiQueue2 = TaxiQueue();
+
+	// 	taxiQueue2.joinQueue();
+
+	// 	// assert.equal(0, taxiQueue2.queueLength());
+	// 	// assert.equal(0, Number(localStorage["passengerQueueCount"]))
+
+	// 	localStorage["passengerQueueCount"]++;
+
+	// 	assert.equal(2, localStorage["passengerQueueCount"])
+	// 	assert.equal(2, taxiQueue2.queueLength());
+	// })
 });
